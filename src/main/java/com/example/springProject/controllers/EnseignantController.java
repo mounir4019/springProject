@@ -18,8 +18,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.CrossOrigin;
 @RestController
+@CrossOrigin(origins = "*")
+//@CrossOrigin(origins = "http://localhost:8080")
+
 public class EnseignantController {
     @Autowired
     EnseignantService enseignantService;
@@ -45,47 +48,46 @@ public class EnseignantController {
     private Enseignant getEnseignant(@PathVariable("enseignantId") int id) {
         return this.enseignantService.getEnseignantById(id);
     }
-    @GetMapping({"/structures"})
-    private List<Structure> getAllStructures() {
-        return this.structureService.getAllStructures();
-    }
 
-    @GetMapping({"/structures/{structureId}"})
-    private Structure getStructure(@PathVariable("structureId") int id) {
-        return this.structureService.getStructureById(id);
-    }
 
 
     @DeleteMapping({"/enseignants/{id}"})
-    private String deleteEnseignant(@PathVariable("id") int id) {
+    @CrossOrigin(origins = "*")
+    private String deleteEnseignant(@PathVariable("id")  int id) {
         this.enseignantService.delete(id);
         return "enseignant Supprimé avec succes";
     }
 
-    @PostMapping({"/enseignants/{structureId}"})
-    private String saveEnseignant(@RequestBody Enseignant enseignant, @PathVariable int  structureId) {
-        enseignant.setStructure(structureService.getStructureById(structureId));
+    @PostMapping({"/enseignants/{strId}"})
+    @CrossOrigin(origins = "*")
+    private String saveEnseignant(@RequestBody Enseignant enseignant, @PathVariable  int  strId) {
+
+            enseignant.setStructure(this.structureService.getStructureById(strId));
+
         this.enseignantService.saveOrUpdate(enseignant);
         return "enseignant Ajouté avec succes";
     }
 
-    @PutMapping({"/enseignants"})
-    private String updateEnseignant(@RequestBody Enseignant enseignant) {
+    @PutMapping({"/enseignants/{strId}"})
+    @CrossOrigin(origins = "*")
+    private String updateEnseignant(@RequestBody Enseignant enseignant, @PathVariable int  strId) {
+        enseignant.setStructure(this.structureService.getStructureById(strId));
         this.enseignantService.saveOrUpdate(enseignant);
         return "enseignant modifié avec succes";
     }
-    @PutMapping("/{structureId}/enseignants/{enseignantId}")
-    public Enseignant assignStructureToEnseignant(
-            @PathVariable int  structureId,
-            @PathVariable int enseignantId
-    ){
-        return enseignantService.assignStructureToEnseignant(structureId, enseignantId);
-    }
+//    @PutMapping("/{structureId}/enseignants/{enseignantId}")
+//    public Enseignant assignStructureToEnseignant(
+//            @PathVariable int  structureId,
+//            @PathVariable int enseignantId
+//    ){
+//        return enseignantService.assignStructureToEnseignant(structureId, enseignantId);
+//    }
     @RequestMapping(
             value = {"/enseignants/pagingation/{pageNumber}/{pageSize}/{sortProperty}"},
             method = {RequestMethod.GET}
     )
     public Page<Enseignant> employeePagination(@PathVariable Integer pageNumber, @PathVariable Integer pageSize, @PathVariable String sortProperty) {
+
         return this.enseignantService.getEnseignantPagination(pageNumber, pageSize, sortProperty);
     }
 }

@@ -44,17 +44,17 @@ public class EnseignantService {
     public void update(Enseignant enseignant, int id) {
         this.enseignantRepository.save(enseignant);
     }
-    public Enseignant assignStructureToEnseignant(int structureId, int enseignantId){
-
-        Enseignant enseignant = this.enseignantRepository.findById(enseignantId) ;
-        System.out.println(enseignant);
-        Structure structure = this.structureRepository.findById(structureId);
-        System.out.println(enseignant);
-        enseignant.setStructure(structure);
-        System.out.println(enseignant);
-        this.enseignantRepository.save(enseignant);
-         return enseignant;
-    }
+//    public Enseignant assignStructureToEnseignant(int structureId, int enseignantId){
+//
+//        Enseignant enseignant = this.enseignantRepository.findById(enseignantId) ;
+//        System.out.println(enseignant);
+//        Structure structure = this.structureRepository.findById(structureId);
+//        System.out.println(enseignant);
+//        enseignant.setStructure(structure);
+//        System.out.println(enseignant);
+//        this.enseignantRepository.save(enseignant);
+//         return enseignant;
+//    }
     public Page<Enseignant> getEnseignantPagination(Integer pageNumber, Integer pageSize, String sortProperty) {
         Pageable pageable = null;
         if (null != sortProperty) {

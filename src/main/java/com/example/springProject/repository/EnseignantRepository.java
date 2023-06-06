@@ -15,5 +15,5 @@ public interface EnseignantRepository extends PagingAndSortingRepository<Enseign
 
     <S extends Enseignant> S save(S Enseignant);
 
-    void deleteById(Integer integer);
+    void deleteById(int id);
 }

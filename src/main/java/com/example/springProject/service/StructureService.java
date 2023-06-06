@@ -5,6 +5,8 @@ import com.example.springProject.entity.Structure;
 import com.example.springProject.repository.StructureRepository;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -21,7 +23,8 @@ public class StructureService {
     }
     public List<Structure> getAllStructures() {
         List<Structure> structures = new ArrayList();
-        structures.addAll(this.structureRepository.findAll());
+//        structures.addAll(this.structureRepository.findAll());
+        structures.addAll(this.structureRepository.findAllByTypeStructure(0));
         return structures;
     }
     public Structure getStructureById(int id) {
@@ -40,15 +43,15 @@ public class StructureService {
         this.structureRepository.save(structure);
     }
 
-    public Page<Structure> getStructurePagination(Integer pageNumber, Integer pageSize, String sortProperty) {
-        Pageable pageable = null;
-        if (null != sortProperty) {
-            pageable = PageRequest.of(pageNumber, pageSize, Direction.ASC, new String[]{sortProperty});
-        } else {
-            pageable = PageRequest.of(pageNumber, pageSize, Direction.ASC, new String[]{"id"});
-        }
-
-        return this.structureRepository.findAll(pageable);
-    }
+//    public Page<Structure> getStructurePagination(Integer pageNumber, Integer pageSize, String sortProperty) {
+//        Pageable pageable = null;
+//        if (null != sortProperty) {
+//            pageable = PageRequest.of(pageNumber, pageSize, Direction.ASC, sortProperty);
+//        } else {
+//            pageable = PageRequest.of(pageNumber, pageSize, Direction.ASC, "id");
+//        }
+//       // expression equivalente: pageable = PageRequest.of(pageNumber, pageSize, Direction.ASC, Objects.requireNonNullElse(sortProperty, "id"));
+//        return this.structureRepository.findAll(pageable);
+//    }
 }
 
