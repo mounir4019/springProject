@@ -6,7 +6,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -33,11 +35,18 @@ public class Enseignant implements Serializable{
     private String  image64;
     @Column
     private Date dateNaissance;
+    @Column
+    private Date dateEntreeAdmin;
 
    // @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "structure_id")
     @JsonIgnoreProperties("enseignants")
-    //@ManyToOne(cascade = CascadeType.ALL )
     @ManyToOne(  )
     private Structure structure;
+
+//    @JsonIgnoreProperties("enseignant")
+//    @OneToMany(mappedBy = "enseignant",
+//            cascade = CascadeType.PERSIST,
+//            orphanRemoval = true)
+//    private List< Diplome > diplomes = new ArrayList<Diplome>();
 }

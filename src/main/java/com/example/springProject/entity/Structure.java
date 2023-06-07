@@ -1,18 +1,11 @@
 package com.example.springProject.entity;
 
-
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
-//import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 @Entity
@@ -38,10 +31,10 @@ public class Structure implements Serializable{
   //  @OneToMany(mappedBy = "structure", cascade = CascadeType.ALL, orphanRemoval = true)
  //    @JsonIgnoreProperties(value = {"referenceList", "handler","hibernateLazyInitializer"}, allowSetters = true)
 
-    @JsonIgnoreProperties("structure")
-    @OneToMany(mappedBy = "structure",
-            cascade = CascadeType.PERSIST,
-            orphanRemoval = true)
-    private List< Enseignant > enseignants = new ArrayList<Enseignant>();
+//    @JsonIgnoreProperties("structure")
+//    @OneToMany(mappedBy = "structure",
+//            cascade = CascadeType.PERSIST,
+//            orphanRemoval = true)
+//    private List< Enseignant > enseignants = new ArrayList<Enseignant>();
 
 }

@@ -3,7 +3,6 @@ package com.example.springProject.repository;
 import com.example.springProject.entity.Enseignant;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
-
 import java.util.List;
 
 
