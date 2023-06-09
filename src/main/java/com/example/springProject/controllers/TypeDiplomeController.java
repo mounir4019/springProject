@@ -14,13 +14,13 @@ import java.util.List;
 public class TypeDiplomeController {
     @Autowired
     TypediplomeService typediplomeService;
-    @GetMapping({"/typediplomes"})
+    @GetMapping({"/typeDiplomes"})
     private List<TypeDiplome> getAllTypeDiplome() {
         return this.typediplomeService.getAllTypeDiplomes();
     }
 
-    @GetMapping({"/typediplomes/{typediplomeId}"})
-    private TypeDiplome getStructure(@PathVariable("typediplomeId") int id) {
+    @GetMapping({"/typeDiplomes/{typeDiplomeId}"})
+    private TypeDiplome getStructure(@PathVariable("typeDiplomeId") int id) {
         return this.typediplomeService.getTypeDiplomeById(id);
     }
 }

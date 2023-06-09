@@ -17,9 +17,9 @@ public class TypeDiplome implements Serializable{
     private int id;
     @Column
     private String designation;
-    @JsonIgnoreProperties("typeDiplome")
-    @OneToMany(mappedBy = "typeDiplome",
-            cascade = CascadeType.PERSIST,
-            orphanRemoval = true)
-    private List< Diplome > diplomes = new ArrayList<Diplome>();
+//    @JsonIgnoreProperties("typeDiplome")
+//    @OneToMany(mappedBy = "typeDiplome",
+//            cascade = CascadeType.PERSIST,
+//            orphanRemoval = true)
+//    private List< Diplome > diplomes = new ArrayList<Diplome>();
 }

@@ -4,6 +4,8 @@ package com.example.springProject.controllers;
 
 import com.example.springProject.entity.Enseignant;
 import com.example.springProject.entity.Structure;
+import com.example.springProject.sendEmail.EmailDetails;
+import com.example.springProject.sendEmail.EmailService;
 import com.example.springProject.service.EnseignantService;
 import com.example.springProject.service.StructureService;
 import java.util.List;
@@ -29,7 +31,7 @@ public class EnseignantController {
     @Autowired
     StructureService structureService;
 
-
+    @Autowired private EmailService emailService;
     public EnseignantController() {
     }
 
@@ -62,9 +64,15 @@ public class EnseignantController {
     @CrossOrigin(origins = "*")
     private String saveEnseignant(@RequestBody Enseignant enseignant, @PathVariable  int  strId) {
 
-            enseignant.setStructure(this.structureService.getStructureById(strId));
-
+        enseignant.setStructure(this.structureService.getStructureById(strId));
         this.enseignantService.saveOrUpdate(enseignant);
+        EmailDetails emailDetails = new EmailDetails();
+        emailDetails.setRecipient("mounir4019@gmail.com");
+        emailDetails.setMsgBody(" hello spring boot emai");
+        emailDetails.setSubject("spring boot email");
+        emailDetails.setAttachment("d:/mounirTabarka.JPG");
+
+        String status  = emailService.sendMailWithAttachment(emailDetails);
         return "enseignant Ajouté avec succes";
     }
 

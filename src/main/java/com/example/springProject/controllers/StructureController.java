@@ -15,6 +15,7 @@ public class StructureController {
     @Autowired
     StructureService structureService;
     @GetMapping({"/structures"})
+    @CrossOrigin(origins = "*")
     private List<Structure> getAllStructures() {
         return this.structureService.getAllStructures();
     }
