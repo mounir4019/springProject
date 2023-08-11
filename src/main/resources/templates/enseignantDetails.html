@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:h2="http://www.h2ymeleaf.org">
+<head>
+    <title>enseignant List</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" 
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body style="direction: rtl;">
+    <div  class="d-flex justify-content-center">
+        <h1>تفاصيل المتكون، التفضل بالتحيين</h1>
+    </div>
+     
+    
+    <div class="container justify-content-center  ">
+        <form th:action="@{/web/updateEnseignant/{enseignantId} (enseignantId = ${enseignant.id} )}" th:object="${enseignant}" method="post">
+      
+    <div class="row justify-content-center "  >             
+         <div class="col"  >  م/و</div>
+         <div class="col" data-th-text="*{id}"> </div>
+    </div>
+    <div class="row justify-content-center "  >          
+        <div class="col-3"  > الإسم</div>
+          <input type="text" th:field="*{nom}">  
+        <div class="col-3" >  اللقب</div>
+         <input type="text" th:field="*{prenom}">  
+   </div>
+   <div class="row justify-content-center "  >          
+    <div class="col-3"  > الهاتف</div>
+           <input type="text" th:field="*{tel}"> 
+        <div class="col-3"  >ب ت و</div>
+           <input type="text" th:field="*{cin}"> 
+    </div>
+    <div class="row justify-content-center "  > 
+   <button type="submit" class="btn btn-primary">تحيين</button>  
+    
+</form>
+   </div> 
+    </div>
+</body>
+</html>

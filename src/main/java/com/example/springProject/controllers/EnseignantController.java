@@ -4,13 +4,18 @@ package com.example.springProject.controllers;
 
 import com.example.springProject.entity.Enseignant;
 import com.example.springProject.entity.Structure;
+import com.example.springProject.entity.User;
 import com.example.springProject.sendEmail.EmailDetails;
 import com.example.springProject.sendEmail.EmailService;
 import com.example.springProject.service.EnseignantService;
 import com.example.springProject.service.StructureService;
 import java.util.List;
+
+import com.example.springProject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,8 +25,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
-@RestController
+@Controller
+@RestController 
 @CrossOrigin(origins = "*")
 //@CrossOrigin(origins = "http://localhost:8080")
 
@@ -30,6 +37,8 @@ public class EnseignantController {
     EnseignantService enseignantService;
     @Autowired
     StructureService structureService;
+    @Autowired
+    UserService userService  ;
 
     @Autowired private EmailService emailService;
     public EnseignantController() {
@@ -46,12 +55,17 @@ public class EnseignantController {
     private List<Enseignant> getAllEnseignants() {
         return this.enseignantService.getAllEnseignants();
     }
+ 
     @GetMapping({"/enseignants/{enseignantId}"})
     private Enseignant getEnseignant(@PathVariable("enseignantId") int id) {
         return this.enseignantService.getEnseignantById(id);
     }
+  @GetMapping({"/enseignantIu/{idUniq}"})
+    private Enseignant getEnseignantIu(@PathVariable("idUniq") String idUniq) {
+       User user= userService.getUserByIdUniq(  idUniq );
+        return this.enseignantService.getEnseignantByUser(user);
 
-
+    }
 
     @DeleteMapping({"/enseignants/{id}"})
     @CrossOrigin(origins = "*")

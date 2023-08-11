@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>enseignant List</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" 
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body style="direction: rtl;">
+    <h1>قائمة المتكونين</h1>
+    <a class="btn btn-primary"  th:href="@{/web/enseignant/add}">
+        إضافة</a>
+    <table class="table table-striped">
+        <tr class="thead-dark">
+            <th>م/و</th>
+            <th>الإسم</th>
+            <th>اللقب</th>
+            <th>الهاتف</th>
+            <th>ب ت و</th>
+            <th colspan="2">التحيين</th>
+        </tr>
+        <tr th:each="enseignant : ${enseignants}">
+            <td th:text="${enseignant.id}"></td>
+            <td th:text="${enseignant.nom}"></td>
+            <td th:text="${enseignant.prenom}"></td>
+            <td th:text="${enseignant.tel}"></td> 
+            <td th:text="${enseignant.cin}"></td> 
+            <td ><button type="button" class="btn btn-primary">حذف</button></td> 
+              <td >   <a class="btn btn-primary"  th:href="@{/web/enseignant/{enseignantId} (enseignantId = ${enseignant.id} )}">
+                تحيين</a></td> 
+           
+        </tr>
+        
+    </table>
+</body>
+</html>

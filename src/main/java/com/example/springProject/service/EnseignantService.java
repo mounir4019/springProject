@@ -3,6 +3,7 @@ package com.example.springProject.service;
 
 import com.example.springProject.entity.Enseignant;
 import com.example.springProject.entity.Structure;
+import com.example.springProject.entity.User;
 import com.example.springProject.repository.EnseignantRepository;
 import com.example.springProject.repository.StructureRepository;
 import java.util.ArrayList;
@@ -30,6 +31,9 @@ public class EnseignantService {
     }
     public Enseignant getEnseignantById(int id) {
         return this.enseignantRepository.findById(id);
+    }
+    public Enseignant getEnseignantByUser(User user) {
+        return this.enseignantRepository.findByUser(user);
     }
 
     public void saveOrUpdate(Enseignant enseignant ) {

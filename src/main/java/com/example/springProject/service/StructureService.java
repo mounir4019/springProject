@@ -4,7 +4,6 @@ import com.example.springProject.entity.Structure;
 import com.example.springProject.repository.StructureRepository;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,15 +36,6 @@ public class StructureService {
         this.structureRepository.save(structure);
     }
 
-//    public Page<Structure> getStructurePagination(Integer pageNumber, Integer pageSize, String sortProperty) {
-//        Pageable pageable = null;
-//        if (null != sortProperty) {
-//            pageable = PageRequest.of(pageNumber, pageSize, Direction.ASC, sortProperty);
-//        } else {
-//            pageable = PageRequest.of(pageNumber, pageSize, Direction.ASC, "id");
-//        }
-//       // expression equivalente: pageable = PageRequest.of(pageNumber, pageSize, Direction.ASC, Objects.requireNonNullElse(sortProperty, "id"));
-//        return this.structureRepository.findAll(pageable);
-//    }
+
 }
 

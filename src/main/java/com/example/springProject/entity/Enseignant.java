@@ -31,18 +31,23 @@ public class Enseignant implements Serializable{
     private String tel;
     @Column
     private String cin;
-    @Column
-    private String  image64;
+    //@Column
+   // private String  image64;
     @Column
     private Date dateNaissance;
     @Column
     private Date dateEntreeAdmin;
 
    // @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "structure_id")
+   @JoinColumn(name = "structure_id")
+   @JsonIgnoreProperties("enseignants")
+   @ManyToOne(  )
+   private Structure structure;
+    @JoinColumn(name = "user_id")
     @JsonIgnoreProperties("enseignants")
-    @ManyToOne(  )
-    private Structure structure;
+    @OneToOne(  )
+    private User user;
+
 
 //    @JsonIgnoreProperties("enseignant")
 //    @OneToMany(mappedBy = "enseignant",
