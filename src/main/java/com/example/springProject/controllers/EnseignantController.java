@@ -80,13 +80,13 @@ public class EnseignantController {
 
         enseignant.setStructure(this.structureService.getStructureById(strId));
         this.enseignantService.saveOrUpdate(enseignant);
-        EmailDetails emailDetails = new EmailDetails();
-        emailDetails.setRecipient("mounir4019@gmail.com");
-        emailDetails.setMsgBody(" hello spring boot emai");
-        emailDetails.setSubject("spring boot email");
-        emailDetails.setAttachment("d:/mounirTabarka.JPG");
+        // EmailDetails emailDetails = new EmailDetails();
+        // emailDetails.setRecipient("mounir4019@gmail.com");
+        // emailDetails.setMsgBody(" hello spring boot emai");
+        // emailDetails.setSubject("spring boot email");
+        // emailDetails.setAttachment("d:/mounirTabarka.JPG");
 
-        String status  = emailService.sendMailWithAttachment(emailDetails);
+       // String status  = emailService.sendMailWithAttachment(emailDetails);
         return "enseignant Ajouté avec succes";
     }
 

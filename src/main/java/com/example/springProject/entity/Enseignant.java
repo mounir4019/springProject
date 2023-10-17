@@ -31,8 +31,8 @@ public class Enseignant implements Serializable{
     private String tel;
     @Column
     private String cin;
-    //@Column
-   // private String  image64;
+     @Column
+     private String  image64;
     @Column
     private Date dateNaissance;
     @Column
