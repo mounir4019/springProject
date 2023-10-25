@@ -69,14 +69,15 @@ public class EnseignantController {
 
     @DeleteMapping({"/enseignants/{id}"})
     @CrossOrigin(origins = "*")
-    private String deleteEnseignant(@PathVariable("id")  int id) {
+    private Enseignant deleteEnseignant(@PathVariable("id")  int id) {
+        Enseignant enseignant=this.enseignantService.getEnseignantById(id);
         this.enseignantService.delete(id);
-        return "enseignant Supprimé avec succes";
+        return   enseignant ;
     }
 
     @PostMapping({"/enseignants/{strId}"})
     @CrossOrigin(origins = "*")
-    private String saveEnseignant(@RequestBody Enseignant enseignant, @PathVariable  int  strId) {
+    private Enseignant saveEnseignant(@RequestBody Enseignant enseignant, @PathVariable  int  strId) {
 
         enseignant.setStructure(this.structureService.getStructureById(strId));
         this.enseignantService.saveOrUpdate(enseignant);
@@ -87,15 +88,15 @@ public class EnseignantController {
         // emailDetails.setAttachment("d:/mounirTabarka.JPG");
 
        // String status  = emailService.sendMailWithAttachment(emailDetails);
-        return "enseignant Ajouté avec succes";
+        return enseignant;
     }
 
     @PutMapping({"/enseignants/{strId}"})
     @CrossOrigin(origins = "*")
-    private String updateEnseignant(@RequestBody Enseignant enseignant, @PathVariable int  strId) {
+    private Enseignant updateEnseignant(@RequestBody Enseignant enseignant, @PathVariable int  strId) {
         enseignant.setStructure(this.structureService.getStructureById(strId));
         this.enseignantService.saveOrUpdate(enseignant);
-        return "enseignant modifié avec succes";
+        return enseignant;
     }
 //    @PutMapping("/{structureId}/enseignants/{enseignantId}")
 //    public Enseignant assignStructureToEnseignant(

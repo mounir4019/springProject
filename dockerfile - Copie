@@ -1,0 +1,18 @@
+# Base image
+FROM maven AS build
+WORKDIR /app
+# Copy the project source
+ 
+COPY . /app
+
+# Build the JAR file
+RUN mvn  clean install package
+
+# Base image for the production image
+FROM openjdk:17 
+
+# Copy the JAR file from the build image
+COPY --from=build /app/target/*.jar /app/app.jar
+
+# Set the entrypoint
+ENTRYPOINT ["java", "-jar", "/app/app.jar"] 
