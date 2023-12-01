@@ -27,6 +27,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
+// import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 @Controller
 @RestController 
 @CrossOrigin(origins = "*")
@@ -44,16 +46,25 @@ public class EnseignantController {
     public EnseignantController() {
     }
 
-    @GetMapping(
-            path = {"/accueil"}
-    )
+    @GetMapping(  path = {"/accueil"} )
     public String accueil() {
-        return "welcome to my first MMM spring boot app";
+       /*  String plainPassword = "admin";
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodedPassword = passwordEncoder.encode(plainPassword); 
+         
+        boolean passwordMatch = passwordEncoder.matches("admin", encodedPassword);
+        //return "welcome original bd: $2y$13$gCBV2JVjogthQConcS60n.V5XRdLxT0gVUFcMgyVCxbO/Jge4MKqG et encoder: "+encodedPassword;
+        System.out.println("Mot de passe original : " + plainPassword);
+        System.out.println("Mot de passe haché : " + encodedPassword);
+        System.out.println("Mot de passe haché bd :$2y$13$gCBV2JVjogthQConcS60n.V5XRdLxT0gVUFcMgyVCxbO/Jge4MKqG "  );
+        */
+        return "welcome to my first spring boot app ";
     }
 
     @GetMapping({"/enseignants"})
     private List<Enseignant> getAllEnseignants() {
         return this.enseignantService.getAllEnseignants();
+        
     }
  
     @GetMapping({"/enseignants/{enseignantId}"})
