@@ -4,6 +4,8 @@ import com.example.springProject.entity.Marque ;
 import com.example.springProject.entity.Produit; 
 import com.example.springProject.repository.ProduitRepository;
 
+import jakarta.transaction.Transactional;
+
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired; 
@@ -43,9 +45,9 @@ public class  ProduitService  {
     // public List<Produit> getProduitsByCategorie(Categorie categorie) {
     //     return this.produitRepository.findByCategorie(categorie);
     // }
-
-    public void saveOrUpdate(Produit produit) {
-        this.produitRepository.save(produit);
+    @Transactional
+    public Produit saveOrUpdate(Produit produit) {
+        return this.produitRepository.save(produit);
     }
 
     public void delete(int id) {

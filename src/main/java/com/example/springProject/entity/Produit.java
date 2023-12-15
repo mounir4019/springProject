@@ -1,7 +1,10 @@
 package com.example.springProject.entity; 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*; 
-import java.io.Serializable; 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 import lombok.Getter;
 import lombok.Setter;
 @Entity
@@ -17,6 +20,8 @@ public class Produit implements Serializable{
     @Column
     private String designation;
     @Column
+    private String  image64;
+    @Column
     private float prix=0;
     @Column
     private int nbStock=0;
@@ -27,6 +32,10 @@ public class Produit implements Serializable{
    @JsonIgnoreProperties("marques")
    @ManyToOne(  )
    private Marque marque  ;
- 
+   @JsonIgnoreProperties("produit")
+   @OneToMany(mappedBy = "produit",
+            cascade = CascadeType.PERSIST,
+            orphanRemoval = true)
+    private List< ProduitImages > produitImages  = new ArrayList<ProduitImages>();
 
 }
