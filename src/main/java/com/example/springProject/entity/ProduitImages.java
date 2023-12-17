@@ -13,9 +13,10 @@ public class ProduitImages implements Serializable{
 
     @Id
     @Column
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
      
-    @Column
+    @Column(columnDefinition = "LONGTEXT")
     private String  image64;
      
    // @ManyToOne(fetch = FetchType.LAZY)

@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired; 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional; 
+import org.springframework.transaction.annotation.Transactional;
+
+import com.example.springProject.entity.Produit;
 import com.example.springProject.entity.ProduitImages;
 import com.example.springProject.repository.ProduitImagesRepository;
 
@@ -17,6 +19,11 @@ public class  ProduitImagesService   {
     public List<ProduitImages> getAllProduitImages() {
         List<ProduitImages>   produitImages = new ArrayList(); 
         produitImages.addAll(this.produitImagesRepository.findAll());
+        return  produitImages;
+    }
+    public List<ProduitImages> getProduitImagesByProduit(Produit produit) {
+        List<ProduitImages>   produitImages = new ArrayList(); 
+        produitImages.addAll(this.produitImagesRepository.findAllByProduit(produit));
         return  produitImages;
     }
     public ProduitImages getProduitImagesById(int id) {

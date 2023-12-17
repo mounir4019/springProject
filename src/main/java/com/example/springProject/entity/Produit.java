@@ -16,10 +16,13 @@ public class Produit implements Serializable{
 
     @Id
     @Column
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column
     private String designation;
-    @Column
+    @Column (length = 512)
+    private String description;
+    @Column(columnDefinition = "LONGTEXT")
     private String  image64;
     @Column
     private float prix=0;
@@ -32,10 +35,11 @@ public class Produit implements Serializable{
    @JsonIgnoreProperties("marques")
    @ManyToOne(  )
    private Marque marque  ;
-   @JsonIgnoreProperties("produit")
+    
+    @JsonIgnoreProperties("produit")
    @OneToMany(mappedBy = "produit",
             cascade = CascadeType.PERSIST,
             orphanRemoval = true)
     private List< ProduitImages > produitImages  = new ArrayList<ProduitImages>();
-
+ 
 }

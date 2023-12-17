@@ -2,13 +2,15 @@ package com.example.springProject.controllers;
 import com.example.springProject.entity.Categorie;
 import com.example.springProject.entity.Marque;
 import com.example.springProject.entity.Panier;
-import com.example.springProject.entity.Produit; 
+import com.example.springProject.entity.Produit;
+import com.example.springProject.entity.ProduitImages;
 import com.example.springProject.service.CategorieService;
 import com.example.springProject.service.MarqueService;
 import com.example.springProject.service.ProduitService;
 
 import org.springframework.beans.factory.annotation.Autowired; 
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -62,6 +64,11 @@ public class ProduitController {
    private  Produit  updateProduit( @RequestBody Produit produit,@PathVariable("marqueId") int marqueId) {  
     produit.setMarque(marqueService.getMarqueById(marqueId)); 
      return  produitService.saveOrUpdate(produit); 
+    }
+    @DeleteMapping({"/produit/{id}"})
+    @CrossOrigin(origins = "*")
+    private void deleteProduit(  @PathVariable  int  id) { 
+          this.produitService.delete(id); 
     }
 
 }
