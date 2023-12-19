@@ -1,6 +1,9 @@
 package com.example.springProject.controllers;  
 import com.example.springProject.entity.Commande;
 import com.example.springProject.entity.Panier;
+import com.example.springProject.sendEmail.EmailService;
+import com.example.springProject.sendEmail.EmailDetails;
+
 import com.example.springProject.service.CommandeService;
 import com.example.springProject.service.PanierService;
 
@@ -20,7 +23,7 @@ public class CommandeController {
     CommandeService commandeService;
       @Autowired
     PanierService panierService;
-     
+     @Autowired private EmailService emailService;
     @GetMapping({"/commandes"})
     @CrossOrigin(origins = "*")
     private List<Commande> getAllProduits() {
@@ -31,7 +34,18 @@ public class CommandeController {
     private  Commande  creerCommande(@RequestBody Commande commande,@PathVariable("idPanier") int idPanier) {
         Panier panier = panierService.getPanierById(idPanier) ;
         commande.setPanier(panier) ;
-        return this.commandeService.saveOrUpdate(commande ); 
+        commande.setEtat(0) ; /// en  attente
+        commande= this.commandeService.saveOrUpdate(commande);
+         EmailDetails emailDetails = new EmailDetails();
+         emailDetails.setRecipient(commande.getEmail());         
+         emailDetails.setSubject("Votre Commande a été bien Validée. ");
+         emailDetails.setMsgBody("Votre Commande a été bien Validée. Elle sera livrée entre 24h et 48h a votre adresse:"+commande.getAdresseLivraison());
+         //emailDetails.setAttachment("d:/mounirTabarka.JPG");
+
+        String status  = emailService.sendSimpleMail(emailDetails);         
+          return commande ;  
+         
+
     }
  
 }

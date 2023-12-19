@@ -22,10 +22,17 @@ public class Commande implements Serializable{
     private  Date date  = Date.from(Instant.now());  
      
     @Column
-    private int etat ;
+    private int etat = 0 ;
+     @Column
+    private String nom ;
+     @Column
+    private String prenom ;
     @Column
     private String adresseLivraison ;
-    
+     @Column
+    private String tel ;
+    @Column
+    private String email ;
    // @ManyToOne(fetch = FetchType.LAZY)
    @JoinColumn(name = "panier_id")
    @JsonIgnoreProperties("commande")
