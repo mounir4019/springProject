@@ -15,6 +15,8 @@ public class TypeDiplome implements Serializable{
     @Id
     @Column
     private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     @Column
     private String designation;
 //    @JsonIgnoreProperties("typeDiplome")

@@ -22,7 +22,7 @@ public class UserService {
         return users;
     }
     public User getUserByIdUniq(String idUniq) {
-        return this.userRepository.findByIdUniq(idUniq);
+        return this.userRepository.findByIdUniq(idUniq) ;
     }
 
     public void saveOrUpdate(User user) {

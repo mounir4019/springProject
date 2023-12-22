@@ -18,6 +18,7 @@ public class User implements Serializable{
 
     @Id
     @Column
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column
     private String idUniq;
@@ -40,9 +41,28 @@ public class User implements Serializable{
 //    @OneToMany(mappedBy = "structure",
 //            cascade = CascadeType.PERSIST,
 //            orphanRemoval = true)
-//    @JoinColumn(name = "user_id")
-//    @JsonIgnoreProperties("enseignants")
-//     @OneToOne(  )
-//    private   Enseignant   enseignant  ;
-
+   /*   @JoinColumn(name = "enseignant_id") 
+     @JsonIgnoreProperties("user")
+     @OneToOne(  )
+    private   Enseignant   enseignant  ;
+ */
+/*
+ * getRoles() return une chaine contient: ["ROLE_ADMIN","ROLE_STAT"]
+ * l'objectid de getRole() est de retouner toutes le grant sous forme d'une chaine séparer par des espace(StringTokenizer) pour que je puisse utiliser dans:la classe CustomUserDetailsService
+ * car elle contien une methode getGrantedAuthorities(user.getRole()) qui prends en paramettre une chaine.
+ * voir getGrantedAuthorities
+ */
+ public String getRole(){
+    // cette methode return une chaine contient tous les privilege separé par un espace entre eux
+    String roles="";
+    if(this.getRoles().length()>0){
+    String rolesX= this.getRoles().substring(2, this.getRoles().length() - 2) ; 
+    String[] rolesTab= rolesX.split("\",\"");
+    for (int i=0;i<rolesTab.length;i++){
+        roles= roles+" "+ rolesTab[i];
+    }
+    }
+    
+        return roles./* replace("ROLE_", "") */trim(); 
+ }
 }

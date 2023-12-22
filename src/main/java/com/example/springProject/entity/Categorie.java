@@ -17,6 +17,7 @@ public class Categorie implements Serializable{
 
     @Id
     @Column
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column
     private String designation;

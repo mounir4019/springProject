@@ -22,6 +22,7 @@ import lombok.Setter;
 public class Enseignant implements Serializable{
     @Id
     @Column
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column
     private String nom;
@@ -43,8 +44,8 @@ public class Enseignant implements Serializable{
    @JsonIgnoreProperties("enseignants")
    @ManyToOne(  )
    private Structure structure;
-    @JoinColumn(name = "user_id")
-    @JsonIgnoreProperties("enseignants")
+    @JoinColumn(name = "enseignant_id")
+     @JsonIgnoreProperties("enseignant")
     @OneToOne(  )
     private User user;
 
