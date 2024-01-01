@@ -23,7 +23,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		 com.example.springProject.entity.User user = userService.getUserByIdUniq(username);
-		System.out.println("user.getRole()");System.out.println(user.getRole());
+		System.out.println("user.getRole() getIdUniq");System.out.println(user.getRole());System.out.println(user.getIdUniq());
 		return new User(user.getIdUniq(), user.getPassword(), getGrantedAuthorities(user.getRole()));
 	}
 

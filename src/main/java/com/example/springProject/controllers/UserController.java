@@ -9,8 +9,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
-@CrossOrigin(origins = "*")
+@RestController 
+@CrossOrigin(origins = "http://localhost:4200")
+
 public class UserController {
     @Autowired
     UserService userService;
@@ -27,6 +28,20 @@ public class UserController {
     private /* UserDetails */User getUser( @PathVariable("idUniq") String idUniq) {
     //return customUserDetailsService.loadUserByUsername(idUniq);
         return  this.userService.getUserByIdUniq(idUniq);
+
+    }
+     @PostMapping({"/user"})
+    @CrossOrigin(origins = "*")
+    private /* UserDetails */User saveUser( @RequestBody User user) {
+    //return customUserDetailsService.loadUserByUsername(idUniq);
+        return  this.userService.saveOrUpdate(user);
+
+    }
+     @PutMapping({"/user"})
+    @CrossOrigin(origins = "*")
+    private /* UserDetails */User updateUser( @RequestBody User user) {
+    //return customUserDetailsService.loadUserByUsername(idUniq);
+        return  this.userService.saveOrUpdate(user);
 
     }
 }

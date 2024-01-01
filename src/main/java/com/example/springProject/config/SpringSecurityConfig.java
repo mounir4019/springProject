@@ -6,11 +6,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -20,6 +22,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.stereotype.Service;
  
 import com.example.springProject.service.UserService;
@@ -29,20 +32,45 @@ import com.example.springProject.service.UserService;
 public class SpringSecurityConfig {
 	@Autowired
 private CustomUserDetailsService customUserDetailsService;
-	@Bean
+    @Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		return http.authorizeHttpRequests(auth -> {
+		return   http   .cors().and().csrf().disable()
+		    /*authorizeHttpRequests(auth -> {
 			auth.requestMatchers("/demo/admin").hasRole("ADMIN");
-			auth.requestMatchers("/demo/user").hasRole("ADMIN");
-			auth.requestMatchers("/demo/user").hasRole("USER");
+			auth.requestMatchers("/demo/user").hasAnyRole("ADMIN","USER"); 
 			//auth.requestMatchers("/login").permitAll();
-			//auth.requestMatchers("/categories").permitAll() ;
-			auth.requestMatchers("/**").hasRole("ADMIN");
+			auth.requestMatchers("/categories").hasRole("ADMIN") ;
+			auth.requestMatchers("/api/login").permitAll() ;
+			// auth.requestMatchers("/**");//.hasRole("ADMIN");
 			auth.anyRequest().authenticated();
-		}) .formLogin(Customizer.withDefaults()).build();
-	}
+		})  */
+		   //.formLogin(Customizer.withDefaults()) 
+		   
+		   .authorizeHttpRequests((authorize) -> authorize
+		   //.requestMatchers("/login").permitAll()
+		   .requestMatchers("/api/login").permitAll()
+		    .requestMatchers("/login").permitAll()
+		   .requestMatchers("/logout").permitAll()
+		   .requestMatchers("/api/logout").permitAll()
+		   .requestMatchers(HttpMethod.GET,"/produits/**").permitAll()
+		   .requestMatchers(HttpMethod.GET,"/marques/**").permitAll()
+		   .requestMatchers(HttpMethod.GET,"/categories/**").permitAll()
+		   .requestMatchers(HttpMethod.POST,"/user").permitAll()
+		   //.requestMatchers("/categories"). hasRole("ADMIN") 
+		   .anyRequest().authenticated()
+			)
+			.httpBasic(Customizer.withDefaults())
+			.formLogin(Customizer.withDefaults())
+			.logout(logout -> logout
+            .logoutUrl("/logout") // Spécifiez l'URL de déconnexion
+            .logoutSuccessUrl("/") // Redirigez l'utilisateur après la déconnexion réussie
+            .invalidateHttpSession(true)
+            .deleteCookies("JSESSIONID")
+        )
+		  .build();  
+	} 
 	
-	@Bean
+	/* @Bean
 	public UserDetailsService users() {
 		UserDetails user = User.builder()
 				.username("user")
@@ -53,7 +81,7 @@ private CustomUserDetailsService customUserDetailsService;
 				.password(passwordEncoder().encode("admin"))
 				.roles("USER").build();
 		return new InMemoryUserDetailsManager(user, admin);
-	}
+	} */
 	
 	@Bean
 	public BCryptPasswordEncoder passwordEncoder() {
@@ -61,6 +89,8 @@ private CustomUserDetailsService customUserDetailsService;
 	}
 	@Bean
 public AuthenticationManager authenticationManager(HttpSecurity http, BCryptPasswordEncoder bCryptPasswordEncoder) throws Exception {
+	System.out.println("bCryptPasswordEncoder");
+	System.out.println(bCryptPasswordEncoder.toString());
 	AuthenticationManagerBuilder authenticationManagerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
 authenticationManagerBuilder.userDetailsService(customUserDetailsService).passwordEncoder(bCryptPasswordEncoder);
 	return authenticationManagerBuilder.build();

@@ -25,8 +25,8 @@ public class UserService {
         return this.userRepository.findByIdUniq(idUniq) ;
     }
 
-    public void saveOrUpdate(User user) {
-        this.userRepository.save(user);
+    public User saveOrUpdate(User user) {
+        return this.userRepository.save(user);
     }
 
     public void delete(String idUniq) {
