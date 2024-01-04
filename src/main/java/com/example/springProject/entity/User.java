@@ -1,10 +1,14 @@
 package com.example.springProject.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import lombok.Getter;
@@ -34,6 +38,11 @@ public class User implements Serializable{
     private String email;
     @Column
     private String tel;
+    @Column(columnDefinition = "LONGTEXT")
+    private String  image64;
+     @Column
+     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy", timezone = "UTC")
+    private  Date dateNaissance  ;
     @Column
     private int type;
     @Column
@@ -62,6 +71,12 @@ public class User implements Serializable{
  * car elle contien une methode getGrantedAuthorities(user.getRole()) qui prends en paramettre une chaine.
  * voir getGrantedAuthorities
  */
+public String getDateNaissance() {
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    if (this.dateNaissance != null)
+     return sdf.format(dateNaissance);
+     return "";
+    }
  public String getRole(){
     // cette methode return une chaine contient tous les privilege separé par un espace entre eux
     String roles="";

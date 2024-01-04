@@ -12,6 +12,7 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -34,7 +35,18 @@ public class SpringSecurityConfig {
 private CustomUserDetailsService customUserDetailsService;
     @Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		return   http   .cors().and().csrf().disable()
+		return   http //cors().and().csrf().disable()
+		.cors(Customizer.withDefaults())
+            .csrf(AbstractHttpConfigurer::disable)
+		/* cors(corsCustomizer -> {
+			// Configuration spécifique CORS
+			corsCustomizer
+				.disable(); // Désactive la configuration CORS par défaut, à personnaliser selon vos besoins
+		}). csrf(csrfCustomizer -> {
+			// Configuration spécifique CSRF
+			csrfCustomizer
+				.disable(); // Désactive la protection CSRF par défaut, à personnaliser selon vos besoins
+		})*/
 		    /*authorizeHttpRequests(auth -> {
 			auth.requestMatchers("/demo/admin").hasRole("ADMIN");
 			auth.requestMatchers("/demo/user").hasAnyRole("ADMIN","USER"); 
@@ -49,23 +61,25 @@ private CustomUserDetailsService customUserDetailsService;
 		   .authorizeHttpRequests((authorize) -> authorize
 		   //.requestMatchers("/login").permitAll()
 		   .requestMatchers("/api/login").permitAll()
-		    .requestMatchers("/login").permitAll()
-		   .requestMatchers("/logout").permitAll()
+		   //.requestMatchers("/login").permitAll()
+		   //.requestMatchers("/logout").permitAll()
 		   .requestMatchers("/api/logout").permitAll()
 		   .requestMatchers(HttpMethod.GET,"/produits/**").permitAll()
 		   .requestMatchers(HttpMethod.GET,"/marques/**").permitAll()
 		   .requestMatchers(HttpMethod.GET,"/categories/**").permitAll()
 		   .requestMatchers(HttpMethod.POST,"/user").permitAll()
-		   //.requestMatchers("/categories"). hasRole("ADMIN") 
+		   .requestMatchers(HttpMethod.PUT,"/user").hasRole("USER")
+		   /* .requestMatchers(HttpMethod.PUT,"/produit/**").permitAll() 
+		   .requestMatchers(HttpMethod.DELETE,"/produit/**").permitAll()  */
 		   .anyRequest().authenticated()
 			)
 			.httpBasic(Customizer.withDefaults())
-			.formLogin(Customizer.withDefaults())
+			//.formLogin(Customizer.withDefaults())
 			.logout(logout -> logout
             .logoutUrl("/logout") // Spécifiez l'URL de déconnexion
             .logoutSuccessUrl("/") // Redirigez l'utilisateur après la déconnexion réussie
             .invalidateHttpSession(true)
-            .deleteCookies("JSESSIONID")
+            .deleteCookies("JSESSIONID") 
         )
 		  .build();  
 	} 
