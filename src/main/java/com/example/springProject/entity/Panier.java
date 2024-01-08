@@ -3,8 +3,11 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*; 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
-import java.time.Instant; 
-import java.util.Date; 
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 import lombok.Getter;
 import lombok.Setter;
 @Entity
@@ -29,6 +32,10 @@ public class Panier implements Serializable{
    @JsonIgnoreProperties("paniers")
    @ManyToOne(  )
    private User user  ;
+  // @JoinColumn(name = "panier_id")
+  @JsonIgnoreProperties("panier")
+  @OneToMany( mappedBy = "panier")
+   private List< PanierProduit > panierProduits = new ArrayList<PanierProduit>(); 
     // @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "panier_id")
     @JsonIgnoreProperties("commande")

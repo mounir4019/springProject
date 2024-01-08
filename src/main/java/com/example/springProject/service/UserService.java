@@ -24,7 +24,9 @@ public class UserService {
     public User getUserByIdUniq(String idUniq) {
         return this.userRepository.findByIdUniq(idUniq) ;
     }
-
+    public User getUserById(int id) {
+        return this.userRepository.findById(id ) ;
+    }  
     public User saveOrUpdate(User user) {
         return this.userRepository.save(user);
     }

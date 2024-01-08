@@ -69,6 +69,13 @@ private CustomUserDetailsService customUserDetailsService;
 		   .requestMatchers(HttpMethod.GET,"/categories/**").permitAll()
 		   .requestMatchers(HttpMethod.POST,"/user").permitAll()
 		   .requestMatchers(HttpMethod.PUT,"/user").hasRole("USER")
+		   .requestMatchers(HttpMethod.POST,"/paniers").permitAll()
+		   .requestMatchers(HttpMethod.POST,"/paniers/**").permitAll()
+		   .requestMatchers(HttpMethod.GET,"/paniers/user/**").hasRole("USER")
+		   //.requestMatchers(HttpMethod.GET,"/paniers/**").permitAll()
+		   .requestMatchers(HttpMethod.GET,"/paniersProduit/**").permitAll()
+		   .requestMatchers(HttpMethod.POST,"/commandes/**").permitAll()
+		   
 		   /* .requestMatchers(HttpMethod.PUT,"/produit/**").permitAll() 
 		   .requestMatchers(HttpMethod.DELETE,"/produit/**").permitAll()  */
 		   .anyRequest().authenticated()

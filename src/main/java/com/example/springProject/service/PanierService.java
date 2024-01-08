@@ -23,6 +23,10 @@ public class  PanierService {
     public Panier getPanierById(int id) {
         return this.panierRepository.findById(id);
     }
+     public Panier getPanierByUserId(int id) {
+        return this.panierRepository.findByUserId(id);
+    }
+    
    @Transactional
     public Panier saveOrUpdate(Panier panier) {
         return this.panierRepository.save(panier);
