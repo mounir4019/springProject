@@ -26,7 +26,8 @@ public class Panier implements Serializable{
      
     @Column
     private int etat=0;
-    
+     @Column  (length = 20)
+    private String userAnonymeId;
    // @ManyToOne(fetch = FetchType.LAZY)
    @JoinColumn(name = "user_id")
    @JsonIgnoreProperties("paniers")

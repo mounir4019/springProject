@@ -26,6 +26,10 @@ public class  PanierService {
      public Panier getPanierByUserId(int id) {
         return this.panierRepository.findByUserId(id);
     }
+     public Panier getPanierByUserAnonymeId(String id) {
+        return this.panierRepository.findByUserAnonymeId(id);
+    }
+    
     
    @Transactional
     public Panier saveOrUpdate(Panier panier) {

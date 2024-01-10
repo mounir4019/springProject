@@ -33,6 +33,7 @@ public class CommandeController {
     @CrossOrigin(origins = "*")
     private  Commande  creerCommande(@RequestBody Commande commande,@PathVariable("idPanier") int idPanier) {
         Panier panier = panierService.getPanierById(idPanier) ;
+        panier.setEtat(1);// panier transformé en commande
         commande.setPanier(panier) ;
         commande.setEtat(0) ; /// en  attente
         commande= this.commandeService.saveOrUpdate(commande);

@@ -1,6 +1,7 @@
 package com.example.springProject.controllers; 
 import org.springframework.beans.factory.annotation.Autowired; 
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -47,9 +48,13 @@ public class PanierController {
     private Panier getPanier(@PathVariable("panierId") int id) {
         return this.panierService.getPanierById(id);
     }
-     @GetMapping({"/paniers/user/{userId}"})
+    @GetMapping({"/paniers/user/{userId}"})
     private Panier getPanierByUserId(@PathVariable("userId") int id) {
         return this.panierService.getPanierByUserId(id);
+    }
+    @GetMapping({"/paniers/userAnonyme/{userAnonymeId}"})
+    private Panier getPanierByUserAnonymeId(@PathVariable("userAnonymeId") String id) {
+        return this.panierService.getPanierByUserAnonymeId(id);
     }
    @PostMapping("/paniers/{idUser}")
    @CrossOrigin(origins = "*")
@@ -61,12 +66,25 @@ public class PanierController {
     private List<PanierProduit>  getPanierProduit(@PathVariable("panierId") int id) {
         return this.panierProduitService.getPanierProduitByPanier(id);
     }
-@PostMapping("/paniers/panierProduit/{panierId}/{produitId}")
+   @PostMapping("/paniers/panierProduit/{panierId}/{produitId}")
    @CrossOrigin(origins = "*")
    private  PanierProduit  savePanierProduit( @RequestBody PanierProduit panierProduit,@PathVariable("panierId") int panierId,@PathVariable("produitId") int produitId ) { 
       panierProduit.setPanier(panierService.getPanierById(panierId));
-      panierProduit.setProduit(produitService.getProduitById(produitId));
-
+      panierProduit.setProduit(produitService.getProduitById(produitId)); 
      return  panierProduitService.saveOrUpdate(panierProduit); 
     }
+   @DeleteMapping("/paniers/panierProduit/{panierId}")
+   @CrossOrigin(origins = "*")
+    private  int  supprimerAllPanierProduit(@PathVariable("panierId") int panierId) { 
+         
+        int nb=0;
+        Panier panier=this.panierService.getPanierById(panierId);
+        for (PanierProduit panierProduit : panier.getPanierProduits()) {
+            
+            this.panierProduitService.deleteByPanierProduit(panierProduit.getPanier().getId(),panierProduit.getProduit().getId()); 
+            nb++;
+        } 
+     return nb;
+    }
+   
 }

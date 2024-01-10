@@ -11,7 +11,8 @@ public interface PanierRepository extends PagingAndSortingRepository<Panier, Int
     Panier findById(int id); 
     @Query("SELECT p FROM Panier p WHERE p.user.id = :id and p.etat=0")
     Panier findByUserId(int id); 
-    
+    @Query("SELECT p FROM Panier p WHERE p.userAnonymeId = :id and p.etat=0")
+    Panier findByUserAnonymeId(String id); 
     <S extends Panier> S saveAndFlush(S panier);
     <S extends Panier> S save(S panier);
     void deleteById(int id);

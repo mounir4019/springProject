@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 public class  PanierProduitService {
     @Autowired
     PanierProduitRepository panierProduitRepository;
@@ -35,8 +36,8 @@ public class  PanierProduitService {
         return this.panierProduitRepository.save(panierProduit);
     }
 
-    public void delete(int idPanier,int idProduit) {
-        this.panierProduitRepository.deleteById(  idPanier );
+    public void deleteByPanierProduit(int idPanier,int idProduit) {
+        this.panierProduitRepository.deleteByPanierProduit(  idPanier ,idProduit);
     }
 
     public void update(PanierProduit panierProduit ) {
