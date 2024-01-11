@@ -25,6 +25,16 @@ public class  CommandeService {
         commandes.addAll(this.commandeRepository.findAll());
         return  commandes;
     }
+    
+    public List<Commande> getMesCommandesClient(int idClient) {
+        List<Commande>  commandes = new ArrayList(); 
+        commandes.addAll(this.commandeRepository.findMesCommandesClient(idClient));
+        return  commandes;
+    }
+    
+    public  Commande getmaFactureClient(String ref  ) {
+        return this.commandeRepository.findByRefFacture(ref  );
+    }
     public  Commande getCommandeById(int id  ) {
         return this.commandeRepository.findById(id  );
     }

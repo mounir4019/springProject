@@ -29,10 +29,12 @@ public class Commande implements Serializable{
     private String prenom ;
     @Column
     private String adresseLivraison ;
-     @Column
+    @Column
     private String tel ;
     @Column
     private String email ;
+    @Column (length = 20)
+    private String referenceFacture  ;
    // @ManyToOne(fetch = FetchType.LAZY)
    @JoinColumn(name = "panier_id")
    @JsonIgnoreProperties("commande")

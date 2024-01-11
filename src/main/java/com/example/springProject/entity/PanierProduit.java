@@ -24,6 +24,8 @@ public class PanierProduit implements Serializable{
     @Column
     private int quantite ;
     
+    @Column
+    private float prixFacture;
    // @ManyToOne(fetch = FetchType.LAZY)
    @JoinColumn(name = "panier_id")
    @JsonIgnoreProperties("PanierProduits")
