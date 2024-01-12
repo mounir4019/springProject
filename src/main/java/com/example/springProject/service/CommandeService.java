@@ -54,5 +54,8 @@ public class  CommandeService {
     public void update(Commande commande ) {
         this.commandeRepository.save(commande);
     } 
+    public Commande validerCommande(  Commande commande){  
+        return this.commandeRepository.save(commande);
+    } 
 }
 

@@ -17,7 +17,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController; 
+import org.springframework.web.bind.annotation.RestController;
+
+import java.time.Instant;
+import java.util.Date;
 import java.util.List;
 @RestController
 @CrossOrigin(origins = "*")
@@ -31,10 +34,19 @@ public class CommandeController {
       @Autowired
     ProduitService produitService;
      @Autowired private EmailService emailService;
-    @GetMapping({"/commandes"})
+    @GetMapping({"administration/commandes"})
     @CrossOrigin(origins = "*")
     private List<Commande> getAllProduits() {
         return this.commandeService.getAllCommandes();
+    }
+    
+    @GetMapping({"/administration/commandes/validation/{idCommande}"})
+    @CrossOrigin(origins = "*")
+    private  Commande validerCommande(@PathVariable("idCommande") int idCommande) {
+      Commande commande = commandeService.getCommandeById(idCommande);
+      commande.setEtat(1);
+      commande.setDateValidation(Date.from(Instant.now()));
+        return this.commandeService.saveOrUpdate(commande);
     }
     @PostMapping({"/commandes/{idPanier}"})
     @CrossOrigin(origins = "*")

@@ -20,7 +20,8 @@ public class Commande implements Serializable{
     private int id;
     @Column
     private  Date date  = Date.from(Instant.now());  
-     
+    @Column
+    private  Date dateValidation;
     @Column
     private int etat = 0 ;
      @Column
@@ -45,5 +46,10 @@ public class Commande implements Serializable{
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     return sdf.format(date );
     }
-  
+    public String getDateValidation () {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        if( dateValidation ==null) 
+          return "";
+          return sdf.format(dateValidation );
+        }
 }

@@ -19,6 +19,7 @@ public class CorsConfig {
 
         // Permettre l'accès depuis tous les domaines, vous pouvez spécifier des domaines spécifiques si nécessaire
         config.addAllowedOrigin("http://localhost:4200");
+        //config.addAllowedOrigin("*");
         config.addAllowedHeader("*");
         
         // Autoriser les méthodes nécessaires
