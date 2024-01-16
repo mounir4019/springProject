@@ -47,6 +47,9 @@ public class User implements Serializable{
     private int type;
     @Column
     private String roles;
+    @ManyToOne
+    @JoinColumn(name = "entreprise_livreur_id")
+    private EntrepriseLivaison entrepriseLivaison;
     /*
     @OneToMany(mappedBy = "structure", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)

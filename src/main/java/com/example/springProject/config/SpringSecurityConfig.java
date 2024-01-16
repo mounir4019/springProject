@@ -81,6 +81,7 @@ private CustomUserDetailsService customUserDetailsService;
 		   .requestMatchers(HttpMethod.GET,"/paniers/user/**").hasRole("USER")
 		   .requestMatchers(HttpMethod.GET,"/administration/commandes/**").hasRole("ADMIN")
 		   .requestMatchers(HttpMethod.GET,"/administration/commandes/validation/**").hasRole("ADMIN")
+		   .requestMatchers(HttpMethod.GET,"/administration/getAllLivreurs").hasRole("ADMIN")
 		   
 		   .anyRequest().authenticated()
 			)

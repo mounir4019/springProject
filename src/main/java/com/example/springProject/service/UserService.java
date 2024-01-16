@@ -27,6 +27,10 @@ public class UserService {
     public User getUserById(int id) {
         return this.userRepository.findById(id ) ;
     }  
+    
+    public List<User> getAllLivreurs( ) {
+        return this.userRepository.findAllLivreurs() ;
+    }
     public User saveOrUpdate(User user) {
         return this.userRepository.save(user);
     }
