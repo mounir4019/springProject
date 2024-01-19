@@ -30,13 +30,13 @@ public class UserController {
         return  this.userService.getUserByIdUniq(idUniq);
 
     }
-    @GetMapping({"/administration/getAllLivreurs"})
+    @GetMapping({"/administration/allLivreurs"})
     @CrossOrigin(origins = "*")
     private List<User> getAllLivreurs( ) { 
         return  this.userService.getAllLivreurs();
 
     }
-     @PostMapping({"/user"})
+    @PostMapping({"/user"})
     @CrossOrigin(origins = "*")
     private /* UserDetails */User saveUser( @RequestBody User user) {
     //return customUserDetailsService.loadUserByUsername(idUniq);

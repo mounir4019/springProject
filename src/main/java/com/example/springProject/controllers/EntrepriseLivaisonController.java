@@ -17,7 +17,7 @@ import java.util.List;
 public class EntrepriseLivaisonController {
     @Autowired
     EntrepriseLivaisonService entrepriseLivaisonService;
-    @GetMapping({"/administration/entrepriseLivaisons"})
+    @GetMapping({"/administration/allEntrepriseLivraison"})
     private List<EntrepriseLivaison> getAllEntrepriseLivaison() {
         return this.entrepriseLivaisonService.getAllEntrepriseLivaisons();
     }

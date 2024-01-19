@@ -38,7 +38,7 @@ public class Panier implements Serializable{
   @OneToMany( mappedBy = "panier")
    private List< PanierProduit > panierProduits = new ArrayList<PanierProduit>(); 
     // @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "panier_id")
+    @JoinColumn(name = "commande_id")
     @JsonIgnoreProperties("commande")
     @OneToOne(  )
     private Commande commande  ; 

@@ -21,10 +21,10 @@ public class LivraisonProduitService {
         return this.livraisonProduitRepository.findById(id);
     }
     
-    public LivraisonProduit ajouterLivraisonProduit(LivraisonProduit livraisonProduit) {
+    public LivraisonProduit saveOrUpdate(LivraisonProduit livraisonProduit) {
         return this.livraisonProduitRepository.save(livraisonProduit);
     }
-    public LivraisonProduit modifierLivraisonProduit(LivraisonProduit livraisonProduit) {
+   /*  public LivraisonProduit modifierLivraisonProduit(LivraisonProduit livraisonProduit) {
         return this.livraisonProduitRepository.save(livraisonProduit);
-    }
+    } */
 } 

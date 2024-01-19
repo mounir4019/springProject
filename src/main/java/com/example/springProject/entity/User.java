@@ -48,26 +48,14 @@ public class User implements Serializable{
     @Column
     private String roles;
     @ManyToOne
-    @JoinColumn(name = "entreprise_livreur_id")
+    @JoinColumn(name = "entreprise_livaison_id")
     private EntrepriseLivaison entrepriseLivaison;
-    /*
-    @OneToMany(mappedBy = "structure", fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL)
-    private Set<Enseignant> enseignants;
-   */
+  /*   @OneToMany(mappedBy = "user")
+    // @JsonIgnoreProperties("user")
+    private List<Livraison> livraisons = new ArrayList<>(); */
+    
 
-    //  @OneToMany(mappedBy = "structure", cascade = CascadeType.ALL, orphanRemoval = true)
-    //    @JsonIgnoreProperties(value = {"referenceList", "handler","hibernateLazyInitializer"}, allowSetters = true)
-
-//    @JsonIgnoreProperties("structure")
-//    @OneToMany(mappedBy = "structure",
-//            cascade = CascadeType.PERSIST,
-//            orphanRemoval = true)
-   /*   @JoinColumn(name = "enseignant_id") 
-     @JsonIgnoreProperties("user")
-     @OneToOne(  )
-    private   Enseignant   enseignant  ;
- */
+ 
 /*
  * getRoles() return une chaine contient: ["ROLE_ADMIN","ROLE_STAT"]
  * l'objectid de getRole() est de retouner toutes le grant sous forme d'une chaine séparer par des espace(StringTokenizer) pour que je puisse utiliser dans:la classe CustomUserDetailsService

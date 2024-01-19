@@ -1,10 +1,16 @@
 package com.example.springProject.entity; 
+import com.example.springProject.service.LivraisonService;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*; 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
-import java.time.Instant; 
-import java.util.Date; 
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
 import lombok.Getter;
 import lombok.Setter;
 @Entity
@@ -13,7 +19,7 @@ import lombok.Setter;
 @Getter @Setter
 //@JsonIdentityInfo(generator= ObjectIdGenerators.IntSequenceGenerator.class)
 public class Commande implements Serializable{
-
+     
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,11 +42,16 @@ public class Commande implements Serializable{
     private String email ;
     @Column (length = 20)
     private String referenceFacture  ;
-   // @ManyToOne(fetch = FetchType.LAZY)
+  //  @ManyToOne(fetch = FetchType.LAZY)
    @JoinColumn(name = "panier_id")
    @JsonIgnoreProperties("commande")
    @OneToOne(  )
    private Panier panier  ; 
+
+/*    @OneToMany(mappedBy = "commande", fetch = FetchType.LAZY)
+   private List<Livraison> livraisons = new ArrayList<>(); */
+     
+ 
    
    public String getDate () {
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -52,4 +63,5 @@ public class Commande implements Serializable{
           return "";
           return sdf.format(dateValidation );
         }
+ 
 }

@@ -36,16 +36,26 @@ public class CommandeController {
      @Autowired private EmailService emailService;
     @GetMapping({"administration/commandes"})
     @CrossOrigin(origins = "*")
-    private List<Commande> getAllProduits() {
+    private List<Commande> getAllCommandes() {
         return this.commandeService.getAllCommandes();
     }
-    
-    @GetMapping({"/administration/commandes/validation/{idCommande}"})
+    @GetMapping({"administration/commandes/{idCommande}"})
     @CrossOrigin(origins = "*")
-    private  Commande validerCommande(@PathVariable("idCommande") int idCommande) {
+    private Commande getCommande(@PathVariable("idCommande") int idCommande) {
+        return this.commandeService.getCommande(idCommande);
+    }
+    @GetMapping({"/administration/commandes/validation/{idCommande}"})
+    ////  Get; je n'est pas besoin du body
+    @CrossOrigin(origins = "*")
+    private  Commande validerCommande(@PathVariable("idCommande") int idCommande) { 
       Commande commande = commandeService.getCommandeById(idCommande);
-      commande.setEtat(1);
+      Panier panier =panierService.getPanierById(commande.getPanier().getId());
+      panier.setEtat(3);// indication à un panier est Livrée
+      commande.setEtat(2);//// Commande est Livrée
+      commande.setPanier(panier);
       commande.setDateValidation(Date.from(Instant.now()));
+      //   ++++++++++++   changer l'etat du Livraison à 1 cad livraison terminé
+      //  +++++++++++++   ne pas oublier livraison total=2 ou partielle=1 creer une interface dans le frontEnd
         return this.commandeService.saveOrUpdate(commande);
     }
     @PostMapping({"/commandes/{idPanier}"})

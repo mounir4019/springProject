@@ -19,7 +19,13 @@ public class LivraisonService {
     public Livraison getLivraisonById(int id) {
         return this.livraisonRepository.findById(id);
     }
+    public Livraison getBonLivraisonClient(String ref) {
+        return this.livraisonRepository.findByRefLivraison(  ref);
+    }
     
+    public List<Livraison>  allLivraisonByCmd(int id) {
+        return this.livraisonRepository.findAllLivraisonByCmd(id);
+    }
     public Livraison ajouterLivraison(Livraison livraison) {
         return this.livraisonRepository.save(livraison);
     }

@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
  
@@ -27,10 +28,10 @@ public class LivraisonProduitController {
     }
     @PostMapping({"/administration/livraisonProduits"})
     private LivraisonProduit ajouterLivraisonProduit(@RequestBody LivraisonProduit livraisonProduit) {
-        return this.livraisonProduitService.ajouterLivraisonProduit (livraisonProduit);
+        return this.livraisonProduitService.saveOrUpdate(livraisonProduit)  ;
     }
-    @PostMapping({"/administration/livraisonProduits"})
+    @PutMapping({"/administration/livraisonProduits"})
     private LivraisonProduit modifierLivraisonProduit(@RequestBody LivraisonProduit livraison) {
-        return this.livraisonProduitService.modifierLivraisonProduit (livraison);
+        return this.livraisonProduitService.saveOrUpdate (livraison);
     }
 }
